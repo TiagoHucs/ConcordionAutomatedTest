@@ -1,0 +1,110 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <link href="concordion.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+   <h1>Especificações do sistema</h1>
+   <p>Estamos construindo especificações para o nosso pedido de rastreamento de pedidos on-line.</p>
+   <p>O seguinte é o requisito de mostrar saudação ao usuário conectado:</p>
+   <div class="example">      
+      <h3>Exemplo concordion:assertEquals</h3>
+      <p>Quando <span concordion:set="#userName">Tiago</span> logar no sistema, 
+      uma saudação "<span concordion:assertEquals="getGreeting(#userName)">Ola Tiago!</span>" será exibida.</p>
+   </div>
+   <div class="example">      
+      <h3>Exemplo Sr com concordion:assertEquals</h3>
+      <p>Quando <span concordion:set="#userName">Tiago</span> logar no sistema, 
+      uma saudação com "<span concordion:assertEquals="getGreetingSr(#userName)">Ola Senhor Tiago!</span>" será exibida.</p>
+   </div>
+   <div class="example">
+      <h3>Examplo Soma com concordion:assertEquals</h3>
+      <p>A soma de dois numeros <span concordion:set="#firstNumber">2</span> 
+	  and  <span concordion:set="#secondNumber">3.3</span> will be 
+	  <span concordion:assertEquals="soma(#firstNumber, #secondNumber)">5.3</span>.</p>
+   </div>
+   <div class="example">      
+      <h3>Examplo primeira letra com concordion:assertTrue</h3>
+      <p>User Name :<span concordion:set="#userName">Robert De</span></p>
+      <p>O nome do usuario <span concordion:assertTrue="#userName.startsWith(#letter)">começa
+      com <b concordion:set="#letter">R</b></span>.</p>
+      <p>O nome do usuario <span concordion:assertFalse="#userName.startsWith(#letter)"> não começa
+      com <b concordion:set="#letter">S</b></span>.</p>          
+   </div>
+   <div class="example">      
+      <h3>Examplo da soma com concordion:execute</h3>
+      	<p>Setar o primeiro numero com <span concordion:set="#firstNumber">2</span></p>
+      	<p>Setar o segundo numero com <span concordion:set="#secondNumber">4</span></p>
+      	<p>Executar o metodo <span concordion:execute="#resultado = soma(#firstNumber, #secondNumber)">soma</span></p>
+      	<p>O resultado será o Double <span concordion:assertEquals="#resultado">6.0</span></p>       
+   </div>
+   <div class="example">
+    	<h3>Examplo da concordion:execute retornando um objeto</h3>
+   		<p>O nome completo <span concordion:execute="#result = splitObject(#TEXT)">Tiago Hucs</span> será dividido em: primeiro nome: <span concordion:assertEquals="#result.primeiroNome">Tiago</span> e ultimo nome: <span concordion:assertEquals="#result.ultimoNome">Hucs</span>.</p>
+   </div>
+   <div class="example">
+   		<h3>Examplo da split com concordion:execute voltando Mapa</h3>
+   		<p>O nome completo <span concordion:execute="#result = splitMap(#TEXT)">Tiago Hucs</span> será dividido em: primeiro nome: <span concordion:assertEquals="#result.primeiroNome">Tiago</span> e ultimo nome: <span concordion:assertEquals="#result.ultimoNome">Hucs</span>.</p>
+   </div>
+   <div class="example">
+	<h3>Examplo Concordion Executar na Tabela</h3>
+	<p>Dado o requisito:</p>
+      <table>
+	      <tr>
+	         <th>First Number</th>
+	         <th>Second Number</th>
+	         <th>Sum</th>
+	      </tr>
+	      <tr concordion:execute="#result = soma(#firstNumber, #secondNumber)">
+	         <td concordion:set="#firstNumber">2</td>
+	         <td concordion:set="#secondNumber">3</td>
+	         <td concordion:assertEquals="#result">5</td>
+	      </tr>
+	      <tr concordion:execute="#result = soma(#firstNumber, #secondNumber)">
+	         <td concordion:set="#firstNumber">4.2</td>
+	         <td concordion:set="#secondNumber">5.1</td>
+	         <td concordion:assertEquals="#result">9.3</td>
+	      </tr>
+	   </table>
+   </div>
+     <div class="example">      
+      <h3>Example Concordion voltando MultiValueResult</h3>
+      <p>O nome completo <span concordion:execute="#result = splitMultiValue(#TEXT)">Tiago Hucs</span> 
+      dividido em primeiro nome 
+      <span concordion:assertEquals="#result.primeiroNome">Tiago</span> e ultimo nome 
+      <span concordion:assertEquals="#result.ultimoNome">Hucs</span>.</p>
+   </div>
+   <div class="example">      
+      <h3>Example Concordion Executar na lista</h3>
+      <ul>
+         <li>O nome completo <span concordion:execute="#result = splitMultiValue(#TEXT)">Robert De</span> dividido: 
+            <ul>
+               <li><span concordion:assertEquals="#result.primeiroNome">Robert</span></li>
+               <li><span concordion:assertEquals="#result.ultimoNome">De</span></li>
+            </ul>
+         </li>
+         <li>O nome completo <span concordion:execute="#result = splitMultiValue(#TEXT)">John Diere</span> dividido: 
+            <ul>
+               <li><span concordion:assertEquals="#result.primeiroNome">John</span></li>
+               <li><span concordion:assertEquals="#result.ultimoNome">Diere</span></li>
+            </ul>
+         </li>
+      </ul>
+   </div>
+	<div class="example">      
+      <h3>Example Concordion verifyRows Command</h3>
+      <table concordion:execute="addUser(#username)">
+         <tr><th concordion:set="#username">Username</th></tr>
+         <tr><td>Robert De</td></tr>
+         <tr><td>John Diere</td></tr>
+         <tr><td>Julie Re</td></tr>
+      </table>
+      <p>Buscando por "<b concordion:set="#searchString">J</b>" deve retornar:</p>
+      <table concordion:verifyRows="#username : search(#searchString)">
+         <tr><th concordion:assertEquals="#username">Username encontrados</th></tr>
+         <tr><td>John Diere</td></tr>
+         <tr><td>Julie Re</td></tr>
+      </table>
+   </div> 
+</body>
+</html>

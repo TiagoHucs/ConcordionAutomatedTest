@@ -1,0 +1,31 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+   <link href="../concordion.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+   <h1>Calculator Specifications</h1>
+   <p>We are building online calculator support in our website.</p>
+   <p>Following is the requirement to add two numbers:</p>
+   <div class="example">
+      <h3>Example</h3>
+      <table>
+      <tr>
+         <th>First Number</th>
+         <th>Second Number</th>
+         <th>Sum</th>
+      </tr>
+      <tr concordion:execute="#result = soma(#firstNumber, #secondNumber)">
+         <td concordion:set="#firstNumber">2</td>
+         <td concordion:set="#secondNumber">3</td>
+         <td concordion:assertEquals="#result">5.0</td>
+      </tr>
+      <tr concordion:execute="#result = soma(#firstNumber, #secondNumber)">
+         <td concordion:set="#firstNumber">4</td>
+         <td concordion:set="#secondNumber">5</td>
+         <td concordion:assertEquals="#result">9.0</td>
+      </tr>
+   </table>
+   </div>
+
+</body>
+</html>
